@@ -1,4 +1,4 @@
  
-#poni¿sze dwa wpisy doda³em sam - do³±czanei plikó statycznych dopiero zaczê³o dzia³aæ pod dodaniu drugiego
+#poni¿sze dwa wpisy doda³em sam - do³±czanei plików statycznych dopiero zaczê³o dzia³aæ pod dodaniu drugiego
 #from django.conf import settings
 #from django.conf.urls.static import static
