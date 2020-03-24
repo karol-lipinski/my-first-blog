@@ -120,6 +120,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
+LOGIN_REDIRECT_URL = '/'
 
 EASY_MAPS_GOOGLE_KEY = 'AIzaSyCr_J-Pk9XGQ4iu_jkCgJLvTxU0GAPRt50'

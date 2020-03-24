@@ -5,6 +5,7 @@ from datetime import datetime
 from .models import Post
 from .forms import PostForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def post_list(request):
@@ -25,6 +26,7 @@ def post_list(request):
     
    #return render(request, 'blog/post_list.html', {'posts': posts})
 
+@login_required
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -38,13 +40,13 @@ def post_new(request):
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
 
-
+@login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     today = datetime.now().day
     return render(request, 'blog/post_detail.html', {'post': post, 'today':today})
 
-
+@login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
