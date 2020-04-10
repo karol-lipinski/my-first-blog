@@ -3,7 +3,7 @@
             {% for post in posts %}
                 <div class="post">
                     <div class="date">
-                        <p>opublikowany: {{ post.published_date }}</p>
+                        <p>{{ post.published_date }}, {{ post.author }}</p>
                     </div>
                    <!-- <h2><a href="">{{ post.title }}</a></h2>-->
 		    <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
@@ -18,6 +18,11 @@
 		  {% if posts.has_previous %}
 		  <li><a href="?page={{ posts.previous_page_number }}" class="page-link">&laquo; WSTECZ </a></li>
 		  {% endif %}
+		  
+		     {% for page in page_range %}
+		       <li> <a href="?page={{ page }}" class="page-link">{{ page }}</a></li>
+		     {% endfor %}
+		  
 		  {% if posts.has_next %}
 		  <li><a href="?page={{ posts.next_page_number }}" class="page-link"> DALEJ &raquo;</a></li>
 		  {% endif %}

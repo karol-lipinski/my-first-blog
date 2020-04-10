@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.utils import timezone
-from datetime import datetime
+#from datetime import datetime
 from .models import Post
 from .forms import PostForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -22,7 +22,7 @@ def post_list(request):
         # If page is out of range deliver last page of results
         post_list = paginator.page(paginator.num_pages)
 
-    return render(request, 'blog/post_list.html', {'page': page, 'posts': post_list})
+    return render(request, 'blog/post_list.html', {'page': page, 'posts': post_list, 'page_range':paginator.page_range})
     
    #return render(request, 'blog/post_list.html', {'posts': posts})
 
@@ -43,13 +43,19 @@ def post_new(request):
 @login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    today = datetime.now().day
+    today = timezone.now().strftime("%x") == post.published_date.strftime("%x")
     return render(request, 'blog/post_detail.html', {'post': post, 'today':today})
 
 @login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    if request.method == "POST":
+    
+    today = timezone.now().strftime("%x") == post.published_date.strftime("%x")
+    if not today:
+        return render(request, 'blog/post_detail.html', {'post': post, 'today':today})
+    
+      
+    elif request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
